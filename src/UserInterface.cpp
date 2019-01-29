@@ -66,7 +66,7 @@ static PopupWindow *setTempPopup, *movePopup, *extrudePopup, *fileListPopup, *ma
 static StaticTextField *areYouSureTextField, *areYouSureQueryField;
 static DisplayField *baseRoot, *commonRoot, *controlRoot, *printRoot, *messageRoot, *setupRoot;
 static SingleButton *homeButtons[MaxAxes], *toolButtons[MaxHeaters], *homeAllButton, *bedCompButton;
-static FloatField *axisPos[MaxAxes];
+static FloatField *axisPos[3][MaxAxes]; // 0: ControlTab, 1: PrintTab, 2: MovePopup
 static FloatField *currentTemps[MaxHeaters];
 static FloatField *fpHeightField, *fpLayerHeightField, *babystepOffsetField;
 static IntegerField *fpSizeField, *fpFilamentField, *filePopupTitleField;
@@ -400,6 +400,10 @@ void CreateMovePopup(const ColourScheme& colours)
 	PixelNumber ypos = popupTopMargin + buttonHeight + moveButtonRowSpacing;
 	const PixelNumber xpos = popupSideMargin + axisLabelWidth;
 	Event e = evMoveX;
+
+	PixelNumber column = movePopupWidth/8;
+	PixelNumber xyFieldWidth = (DISPLAY_X - (2 * margin) - (MaxAxes * fieldSpacing))/(MaxAxes + 1);
+
 	for (size_t i = 0; i < MaxAxes; ++i)
 	{
 		DisplayField::SetDefaultColours(colours.popupButtonTextColour, colours.popupButtonBackColour);
@@ -412,6 +416,17 @@ void CreateMovePopup(const ColourScheme& colours)
 		movePopup->AddField(tf);
 		moveAxisRows[i] = tf;
 		UI::ShowAxis(i, i < MIN_AXES);
+
+		if (MaxAxes < 5)
+				{
+					DisplayField::SetDefaultColours(colours.popupTextColour, colours.popupInfoBackColour);
+					FloatField *f = new FloatField(row2 + rowHeight/3, column, xyFieldWidth, TextAlignment::Centre, (i == 2) ? 2 : 1, axisNames[i]);
+					axisPos[2][i] = f;
+					f->SetValue(0.0);
+					movePopup->AddField(f);
+					f->Show(i < MIN_AXES);
+					column += xyFieldWidth + fieldSpacing;
+				}
 
 		ypos += buttonHeight + moveButtonRowSpacing;
 		e = (Event)((uint8_t)e + 1);
@@ -742,7 +757,7 @@ void CreateControlTabFields(const ColourScheme& colours)
 	for (size_t i = 0; i < MaxAxes; ++i)
 	{
 		FloatField *f = new FloatField(row6p3 + labelRowAdjust, column, xyFieldWidth, TextAlignment::Left, (i == 2) ? 2 : 1, axisNames[i]);
-		axisPos[i] = f;
+		axisPos[0][i] = f;
 		f->SetValue(0.0);
 		mgr.AddField(f);
 		f->Show(i < MIN_AXES);
@@ -838,15 +853,29 @@ void CreatePrintingTabFields(const ColourScheme& colours)
 	resetButton = new TextButton(row7, cancelColumn, DisplayX - cancelColumn - margin, strings->cancel, evReset, "M0");
 	mgr.AddField(resetButton);
 
-	//		DisplayField::SetDefaultColours(labelTextColour, defaultBackColour);
-	//		mgr.AddField(printingField = new TextField(row8, margin, DisplayX, TextAlignment::Left, "printing ", printingFile.c_str()));
+	PixelNumber offset = 0;
+		#if DISPLAY_X == 800
+			offset = rowHeight - 20;
+			DisplayField::SetDefaultColours(colours.infoTextColour, colours.infoBackColour);
+			PixelNumber column = margin;
+			PixelNumber xyFieldWidth = (DISPLAY_X - (2 * margin) - (MaxAxes * fieldSpacing))/(MaxAxes + 1);
+			for (size_t i = 0; i < MaxAxes; ++i)
+			{
+				FloatField *f = new FloatField(row8 + labelRowAdjust - 4, column, xyFieldWidth, TextAlignment::Left, (i == 2) ? 2 : 1, axisNames[i]);
+				axisPos[1][i] = f;
+				f->SetValue(0.0);
+				mgr.AddField(f);
+				f->Show(i < MIN_AXES);
+				column += xyFieldWidth + fieldSpacing;
+			}
+		#endif
 
 	DisplayField::SetDefaultColours(colours.progressBarColour,colours. progressBarBackColour);
-	mgr.AddField(printProgressBar = new ProgressBar(row8 + (rowHeight - progressBarHeight)/2, margin, progressBarHeight, DisplayX - 2 * margin));
+	mgr.AddField(printProgressBar = new ProgressBar(row8 + offset + (rowHeight - progressBarHeight)/2, margin, progressBarHeight, DisplayX - 2 * margin));
 	mgr.Show(printProgressBar, false);
 
 	DisplayField::SetDefaultColours(colours.labelTextColour, colours.defaultBackColour);
-	mgr.AddField(timeLeftField = new TextField(row9, margin, DisplayX - 2 * margin, TextAlignment::Left, strings->timeRemaining));
+	mgr.AddField(timeLeftField = new TextField(row9 + offset, margin, DisplayX - 2 * margin, TextAlignment::Left, strings->timeRemaining));
 	mgr.Show(timeLeftField, false);
 
 	printRoot = mgr.GetRoot();
@@ -1079,14 +1108,18 @@ namespace UI
 			f->Show(b);
 			f = f->next;
 		}
-		axisPos[axis]->Show(b);
+		axisPos[0][axis]->Show(b);
+		axisPos[1][axis]->Show(b);
+		axisPos[2][axis]->Show(b);
 	}
 
 	void UpdateAxisPosition(size_t axis, float fval)
 	{
-		if (axis < MaxAxes && axisPos[axis] != nullptr)
+		if (axis < MaxAxes && axisPos[0][axis] != nullptr)
 		{
-			axisPos[axis]->SetValue(fval);
+			axisPos[0][axis]->SetValue(fval);
+			axisPos[1][axis]->SetValue(fval);
+			axisPos[2][axis]->SetValue(fval);
 		}
 	}
 
