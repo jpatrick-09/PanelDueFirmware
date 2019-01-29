@@ -43,6 +43,8 @@ struct StringTable
 	CSTRING extrusion;
 	CSTRING macro;
 	CSTRING stop;
+	CSTRING bedCompConfirm;
+	CSTRING bedCompWarning;
 
 	// Print page
 	CSTRING extruderPercent;
@@ -72,6 +74,8 @@ struct StringTable
 	CSTRING saveAndRestart;
 
 	// Misc
+	CSTRING macroConfirm;
+	CSTRING macroWarning;
 	CSTRING confirmFactoryReset;
 	CSTRING confirmFileDelete;
 	CSTRING areYouSure;
@@ -89,6 +93,7 @@ struct StringTable
 	CSTRING response;
 
 	// File popup
+	CSTRING switchCards;
 	CSTRING filesOnCard;
 	CSTRING macros;
 	CSTRING error;
@@ -133,6 +138,8 @@ const StringTable LanguageTables[NumLanguages] =
 		"Extrusion",
 		"Macro",
 		"STOP",
+		"Are you sure you want to probe the bed",
+		"Ensure probe calibration is performed prior to proceeding",
 
 		// Print page
 		"Extruder" THIN_SPACE "%",
@@ -162,6 +169,8 @@ const StringTable LanguageTables[NumLanguages] =
 		"Save & Restart",
 
 		// Misc
+		"Are you sure you want to run this Macro? ",
+		"Use caution when executing macros during a print.",
 		"Confirm factory reset",
 		"Confirm file delete",
 		"Are you sure?",
@@ -179,6 +188,7 @@ const StringTable LanguageTables[NumLanguages] =
 		"Response",
 
 		// File popup
+		"Switch Card",
 		"Files on card ",				// note the space on the end
 		"Macros",
 		"Error ",						// note the space at the end
@@ -242,11 +252,13 @@ const StringTable LanguageTables[NumLanguages] =
 		"Extrusion",
 		"Makro",
 		"STOP",
+		"Are you sure you want to probe the bed",
+		"Ensure probe calibration is performed prior to proceeding",
 
 		// Print page
 		"Extruder" THIN_SPACE "%",
 		"Tempo ",							// note space at end. Was "Geschwindigkeit " but that is too long to fit in the space available.
-		"Lüfter ",							// note space at end
+		"LÃ¼fter ",							// note space at end
 		"Restzeit: ",
 		"Datei ",							// note space at end
 		", Filament ",						// note space at end
@@ -259,7 +271,7 @@ const StringTable LanguageTables[NumLanguages] =
 		"Set",
 
 		// Setup page
-		"Lautstärke ",						// note space at end
+		"LautstÃ¤rke ",						// note space at end
 		"Touch kalibrieren",
 		"Anzeige spiegeln",
 		"Anzeige umkehren",
@@ -271,15 +283,17 @@ const StringTable LanguageTables[NumLanguages] =
 		"Sichern & Reboot",
 
 		// Misc
-		"Alle Einstellungen zurücksetzen",
-		"Die Datei wird gelöscht",
+		"Are you sure you want to run this Macro? ",
+		"Use caution when executing macros during a print.",
+		"Alle Einstellungen zurÃ¼cksetzen",
+		"Die Datei wird gelÃ¶scht",
 		"Sind sie sicher?",
 		"Bitte auf den Punkt tippen",
 		"Kopf bewegen",
 		"Extrusionsmenge (mm)",
 		"Geschwindigkeit (mm/s)",
 		"Extrudieren",
-		"Zurückziehen",
+		"ZurÃ¼ckziehen",
 		"Einzelschritte",
 		"Aktueller Z-Versatz: ",
 		"Nachricht",
@@ -288,18 +302,19 @@ const StringTable LanguageTables[NumLanguages] =
 		"Antwort",
 
 		// File popup
+		"Switch Karte",
 		"Dateien auf Karte ",			// note the space on the end
 		"Makros",
 		"Fehler ",						// note the space at the end
 		" beim Zugriff auf SD-Karte",	// note the space at the start
 		"Dateiname: ",
-		"Größe: ",
-		"Schichthöhe: ",
-		"Objekthöhe: ",
-		"Benötigtes Filament: ",
+		"GrÃ¶ÃŸe: ",
+		"SchichthÃ¶he: ",
+		"ObjekthÃ¶he: ",
+		"BenÃ¶tigtes Filament: ",
 		"Erzeugt mit: ",
-		"Letzte Änderung: ",
-		"Geschätzte Druckdauer: ",
+		"Letzte Ã„nderung: ",
+		"GeschÃ¤tzte Druckdauer: ",
 		"Errechnete Druckdauer: ",
 		"Simulieren",
 
@@ -311,7 +326,7 @@ const StringTable LanguageTables[NumLanguages] =
 			"Angehalten",
 			"Starte",
 			"Pausiert",
-			"Beschäftigt",
+			"BeschÃ¤ftigt",
 			"Pausiere",
 			"Fortsetzen",
 			"Firmware-Upload",
@@ -337,10 +352,10 @@ const StringTable LanguageTables[NumLanguages] =
 	// French
 	{
 		// Language name
-		"Français",
+		"FranÃ§ais",
 
 		// Main page strings
-		"Contrôle",
+		"ContrÃ´le",
 		"Imprimer",
 		"Console",
 		"Installation",
@@ -350,7 +365,9 @@ const StringTable LanguageTables[NumLanguages] =
 		"Mouvement",
 		"Extrusion",
 		"Macro",
-		"ARRÊT",
+		"ARRÃŠT",
+		"Are you sure you want to probe the bed",
+		"Ensure probe calibration is performed prior to proceeding",
 
 		// Print page
 		"Extrudeuse" THIN_SPACE "%",
@@ -370,46 +387,49 @@ const StringTable LanguageTables[NumLanguages] =
 		// Setup page
 		"Volume ",								// note space at end
 		"Calibrer touch",
-		"Affichage en négatif",
+		"Affichage en nÃ©gatif",
 		"Inverser affichage",
-		"Théme",
-		"Luminosité -",
-		"Luminosité +",
-		"Sauver paramêtres",
-		"Effacer paramêtres",
-		"Sauvegarde & Redémarrage",
+		"ThÃ©me",
+		"LuminositÃ© -",
+		"LuminositÃ© +",
+		"Sauver paramÃªtres",
+		"Effacer paramÃªtres",
+		"Sauvegarde & RedÃ©marrage",
 
 		// Misc
-		"Confirmer le réinitialisation de l'imprimante",
+		"Are you sure you want to run this Macro? ",
+		"Use caution when executing macros during a print.",
+		"Confirmer le rÃ©initialisation de l'imprimante",
 		"Confirm suppression fichier",
-		"Vous êtes sûre?",
+		"Vous Ãªtes sÃ»re?",
 		"Appuyer sur le point",
-		"Mouvement de la  tête",
-		"Quantité de Matiére extrudée (mm)",
+		"Mouvement de la  tÃªte",
+		"QuantitÃ© de MatiÃ©re extrudÃ©e (mm)",
 		"Vitesse (mm/s)",
 		"Extruder",
 		"Retracter",
 		"Baby stepping",
-		"décalage Z courant : ",
+		"dÃ©calage Z courant : ",
 		"Message",
 		"Messages",
 		"Version du firmware du Panel Due ",	// note space at end
-		"Réponse",
+		"RÃ©ponse",
 
 		// File popup
+		"Switch Carte",
 		"Fichier sur carte ",					// note the space on the end
 		"Macros",
 		"Erreur ",								// note the space at the end
-		" accés SD card en cours",				// note the space at the start
+		" accÃ©s SD card en cours",				// note the space at the start
 		"Nom du fichier : ",
 		"Taille : ",
 		"Hauteur de couche: ",
 		"Hauteur de l'objet: ",
 		"Filament requis: ",
 		"Sliced par: ",
-		"Dernière modification: ",
-		"Temps d'impression estimé: ",
-		"Temps d'impression simulé: ",
+		"DerniÃ¨re modification: ",
+		"Temps d'impression estimÃ©: ",
+		"Temps d'impression simulÃ©: ",
 		"Simuler",
 
 		// Printer status strings
@@ -417,13 +437,13 @@ const StringTable LanguageTables[NumLanguages] =
 			"Connection en cours",
 			"Au repos",
 			"Impression",
-			"Arrêt",
-			"Démarrage",
+			"ArrÃªt",
+			"DÃ©marrage",
 			"Pause",
-			"Occupé"
+			"OccupÃ©"
 			"Pause",
 			"Reprise",
-			"Téleverser le firmware",
+			"TÃ©leverser le firmware",
 			"Changement d'outil",
 			"Simuler",
 			"En veille"
@@ -446,20 +466,22 @@ const StringTable LanguageTables[NumLanguages] =
 	// Spanish
 	{
 		// Language name
-		"Español",
+		"EspaÃ±ol",
 
 		// Main page strings
 		"Control",
 		"Imprimir",
 		"Consola",
-		"Configuración",
+		"ConfiguraciÃ³n",
 		"Actual" THIN_SPACE DEGREE_SYMBOL "C",
 		"Activo" THIN_SPACE DEGREE_SYMBOL "C",
 		"Esperando" THIN_SPACE DEGREE_SYMBOL "C",
 		"Mover",
-		"Extrusión",
+		"ExtrusiÃ³n",
 		"Macro",
 		"PARADA",							// It could also be STOP, both are OK
+		"Are you sure you want to probe the bed",
+		"Ensure probe calibration is performed prior to proceeding",
 
 		// Print page
 		"Extrusor" THIN_SPACE "%",
@@ -484,46 +506,49 @@ const StringTable LanguageTables[NumLanguages] =
 		"Tema",
 		"Brillo -",
 		"Brillo +",
-		"Guardar parámetros",
-		"Borrar parámetros",
+		"Guardar parÃ¡metros",
+		"Borrar parÃ¡metros",
 		"Guardar y Reiniciar",
 
 		// Misc
-		"Confirma restablecimiento de fábrica",
+		"Are you sure you want to run this Macro? ",
+		"Use caution when executing macros during a print.",
+		"Confirma restablecimiento de fÃ¡brica",
 		"Confirma borrar archivo",
-		"Está seguro?",
+		"EstÃ¡ seguro?",
 		"Tocar el punto",
 		"Mover cabezal",
-		"Cantidad de extrusión (mm)",
+		"Cantidad de extrusiÃ³n (mm)",
 		"Velocidad (mm/s)",
 		"Extruir",
 		"Retraer",
 		"Micro paso",
-		"Separación actual de Z: ",
+		"SeparaciÃ³n actual de Z: ",
 		"Mensaje",
 		"Mensajes",
-		"Panel Due versión de firmware ",	// note space at end
+		"Panel Due versiÃ³n de firmware ",	// note space at end
 		"Respuesta",
 
 		// File popup
+		"Switch Card",
 		"Archivos en la tarjeta ",			// note the space on the end
 		"Macros",
 		"Error ",							// note the space at the end
 		" accediendo a la tarjeta SD",		// note the space at the start
 		"Nombre de archivo: ",
-		"Tamaño: ",
+		"TamaÃ±o: ",
 		"Altura de capa: ",
 		"Altura de objeto: ",
 		"Filamento necesario: ",
 		"Procesado por: ",					// there is no translation in spanish for this meaning, so I proposed to use "processed by" which is understandable
-		"Última modificación: ",
-		"Tiempo estimado de impresión: ",
-		"Tiempo de impresión simulado: ",
+		"Ãšltima modificaciÃ³n: ",
+		"Tiempo estimado de impresiÃ³n: ",
+		"Tiempo de impresiÃ³n simulado: ",
 		"Simular",
 
 		// Printer status strings
 		{
-			"conexión",
+			"conexiÃ³n",
 			"en espera",					// it's more frequently use "en espera" than "ocioso", it makes more sense for a machine
 			"imprimiendo",
 			"detuvo",
@@ -556,13 +581,13 @@ const StringTable LanguageTables[NumLanguages] =
 	// Czech
 	{
 		// Language name
-		"Čeština",
+		"ÄŒeÅ¡tina",
 
 		// Main page strings
-		"Ovládání",
+		"OvlÃ¡dÃ¡nÃ­",
 		"Tisk",
 		"Konzole",
-		"Nastavení",
+		"NastavenÃ­",
 		"Aktuální" THIN_SPACE DEGREE_SYMBOL "C",
 		"Aktivní" THIN_SPACE DEGREE_SYMBOL "C",
 		"Nečinná" THIN_SPACE DEGREE_SYMBOL "C",
@@ -570,61 +595,66 @@ const StringTable LanguageTables[NumLanguages] =
 		"Extruder",
 		"Makra",
 		"STOP",
+		"Are you sure you want to probe the bed",
+		"Ensure probe calibration is performed prior to proceeding",
 
 		// Print page
 		"Extruder" THIN_SPACE "%",
 		"Rychl. ",							// note space at end
 		"Vent. ",							// note space at end
-		"Čas do konce: ",
+		"ÄŒas do konce: ",
 		"soubor ",							// note space at end
-		", materiál ",						// note space at end
+		", materiÃ¡l ",						// note space at end
 		", vrstva ",						// note space at end
 		"n/a",
 		"Pozastavit",
 		"Baby step",
-		"Pokračovat",
-		"Zrušit",
+		"PokraÄ�ovat",
+		"ZruÅ¡it",
 		"OK",
 
 		// Setup page
 		"Hlasitost ",						// note space at end
 		"Kalibrace dotyku",
 		"Zrcadlit displej",
-		"Obrátit displej",
+		"ObrÃ¡tit displej",
 		"Motiv",
-		"Podsvícení -",
-		"Podsvícení +",
-		"Uložit nastavení",
-		"Smazat nastavení",
-		"Uložit a Restart",
+		"PodsvÃ­cenÃ­ -",
+		"PodsvÃ­cenÃ­ +",
+		"UloÅ¾it nastavenÃ­",
+		"Smazat nastavenÃ­",
+		"UloÅ¾it a Restart",
 
 		// Misc
-		"Skutečně obnovit tovární nastavení?",
-		"Skutečně smazat?",
-		"Určitě?",
-		"Dotkněte se bodu",
+		"Are you sure you want to run this Macro? ",
+		"Use caution when executing macros during a print.",
+		"SkuteÄ�nÄ› obnovit tovÃ¡rnÃ­ nastavenÃ­?",
+		"SkuteÄ�nÄ› smazat?",
+		"UrÄ�itÄ›?",
+		"DotknÄ›te se bodu",
 		"Posun hlavy",
-		"Množství (mm)",
+		"MnoÅ¾stvÃ­ (mm)",
 		"Rychlost (mm/s)",
-		"Vytlačit (extr.)",
-		"Zatlačit (retr.)",
+		"VytlaÄ�it (extr.)",
+		"ZatlaÄ�it (retr.)",
 		"Baby stepping",
-		"Aktuální Z offset: ",
-		"Zpráva",
-		"Zprávy",
+		"AktuÃ¡lnÃ­ Z offset: ",
+		"ZprÃ¡va",
+		"ZprÃ¡vy",
 		"Verze firmware Panel Due ",	// note space at end
-		"Odpověď",
+		"OdpovÄ›Ä�",
 
 		// File popup
-		"Soubory na kartě ",			// note the space on the end
+		"Switch Card",
+		"Soubory na kartÄ› ",			// note the space on the end
 		"Makra",
 		"Chyba ",						// note the space at the end
-		" přístupu ke kartě",			// note the space at the start
-		"Název: ",
+		" pÅ™Ã­stupu ke kartÄ›",			// note the space at the start
+		"NÃ¡zev: ",
 		"Velikost: ",
-		"Výška vrstvy: ",
-		"Výška objektu: ",
-		"Spotřeba (mat.): ",
+		"VÃ½Å¡ka vrstvy: ",
+		"VÃ½Å¡ka objektu: ",
+		"SpotÅ™eba (mat.): ",
 		"Slicer: ",
 		"Last modified: ",
 		"Estimated print time: ",
@@ -633,32 +663,32 @@ const StringTable LanguageTables[NumLanguages] =
 
 		// Printer status strings
 		{
-			"Připojování",
-			"Nečinný",
+			"PÅ™ipojovÃ¡nÃ­",
+			"NeÄ�innÃ½",
 			"Tiskne",
 			"Zastaven",
 			"Startuje",
 			"Pozastaven",
-			"Zaneprázdněný",
+			"ZaneprÃ¡zdnÄ›nÃ½",
 			"Pozastavuje se",
-			"Pokračuje",
-			"Nahrává firmware",
-			"Výměna nástroje",
+			"PokraÄ�uje",
+			"NahrÃ¡vÃ¡ firmware",
+			"VÃ½mÄ›na nÃ¡stroje",
 			"Simulace",
-			"Pohotovostní"
+			"PohotovostnÃ­"
 		},
 
 		// Theme names
 		{
-			"Světlý",
-			"Tmavý"
+			"SvÄ›tlÃ½",
+			"TmavÃ½"
 		},
 
 		// Display dimming types
 		{
-			"Nikdy nezměníme",
+			"Nikdy nezmÄ›nÃ­me",
 			"Idle Dim",
-			"Vždy Dim"
+			"VÅ¾dy Dim"
 		}
 	}
 #endif

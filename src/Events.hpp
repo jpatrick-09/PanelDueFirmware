@@ -48,6 +48,7 @@ enum Event : uint8_t
 	evYes,
 	evCancel,
 	evDeleteFile,
+	evBedComp,
 	evSimulateFile,
 	evPausePrint,
 	evResumePrint,

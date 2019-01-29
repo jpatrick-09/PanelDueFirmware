@@ -15,7 +15,7 @@ const Colour
 	white = 0xFFFF,
 	black = 0x0000,
 	grey = UTFT::fromRGB(128, 128, 128),
-	red = UTFT::fromRGB(255,0,0),
+	red = UTFT::fromRGB(232,51,56),
 	lightRed =  UTFT::fromRGB(255, 128, 128),
 	darkRed = UTFT::fromRGB(128, 0, 0),
 	yellow = UTFT::fromRGB(128,128,0),
@@ -31,7 +31,10 @@ const Colour
 	blue = UTFT::fromRGB(0,0,255),
 	magenta = UTFT::fromRGB(128,0,128),
 	lightBlue = UTFT::fromRGB(224, 224, 255),
-	darkBlue = UTFT::fromRGB(0, 0, 64);
+	darkBlue = UTFT::fromRGB(0, 0, 64),
+	gray = UTFT::fromRGB(166,168,171),
+	darkGray = UTFT::fromRGB(51,51,51),
+	offWhite = UTFT::fromRGB(234, 227, 227);
 
 // Definition of a colour scheme
 struct ColourScheme

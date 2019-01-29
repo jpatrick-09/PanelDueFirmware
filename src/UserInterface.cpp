@@ -115,6 +115,7 @@ static unsigned int numAxes = 0;						// initialise to 0 so we refresh the macro
 static bool isDelta = false;
 
 const char* array null currentFile = nullptr;			// file whose info is displayed in the file info popup
+const char* array null currentMacro = nullptr;			// Macro called after confirmation popup
 const StringTable * strings = &LanguageTables[0];
 static bool keyboardIsDisplayed = false;
 static bool keyboardShifted = false;
@@ -421,8 +422,8 @@ void CreateMovePopup(const ColourScheme& colours)
 void CreateExtrudePopup(const ColourScheme& colours)
 {
 	static const char * array extrudeAmountValues[] = { "100", "50", "20", "10", "5",  "1" };
-	static const char * array extrudeSpeedValues[] = { "50", "20", "10", "5", "2" };
-	static const char * array extrudeSpeedParams[] = { "3000", "1200", "600", "300", "120" };		// must be extrudeSpeedValues * 60
+	static const char * array extrudeSpeedValues[] = { "5", "4", "3", "2", "1" };
+	static const char * array extrudeSpeedParams[] = { "300", "240", "180", "120", "60" };		// must be extrudeSpeedValues * 60
 
 	extrudePopup = new StandardPopupWindow(extrudePopupHeight, extrudePopupWidth, colours.popupBackColour, colours.popupBorderColour, colours.popupTextColour, colours.buttonImageBackColour, strings->extrusionAmount);
 	PixelNumber ypos = popupTopMargin + buttonHeight + extrudeButtonRowSpacing;
@@ -435,8 +436,8 @@ void CreateExtrudePopup(const ColourScheme& colours)
 	DisplayField::SetDefaultColours(colours.popupButtonTextColour, colours.popupButtonBackColour);
 	currentExtrudeRatePress = CreateStringButtonRow(extrudePopup, ypos, popupSideMargin, extrudePopupWidth - 2 * popupSideMargin, fieldSpacing, 5, extrudeSpeedValues, extrudeSpeedParams, evExtrudeRate, 4);
 	ypos += buttonHeight + extrudeButtonRowSpacing;
-	extrudePopup->AddField(new TextButton(ypos, popupSideMargin, extrudePopupWidth/3 - 2 * popupSideMargin, strings->extrude, evExtrude));
-	extrudePopup->AddField(new TextButton(ypos, (2 * extrudePopupWidth)/3 + popupSideMargin, extrudePopupWidth/3 - 2 * popupSideMargin, strings->retract, evRetract));
+	extrudePopup->AddField(new TextButton(ypos, 2 * (extrudePopupWidth)/3 + popupSideMargin, extrudePopupWidth/3 - 2 * popupSideMargin, strings->extrude, evExtrude));
+	extrudePopup->AddField(new TextButton(ypos, popupSideMargin, extrudePopupWidth/3 - 2 * popupSideMargin, strings->retract, evRetract));
 }
 
 // Create a popup used to list files pr macros
@@ -465,7 +466,7 @@ pre(fileButtons.lim == numRows * numCols)
 	DisplayField::SetDefaultColours(colours.popupButtonTextColour, colours.buttonImageBackColour);
 	if (filesNotMacros)
 	{
-		popup->AddField(changeCardButton = new IconButton(popupTopMargin, changeButtonPos, navButtonWidth, IconFiles, evChangeCard, 0));
+		popup->AddField(changeCardButton = new TextButton(popupTopMargin, changeButtonPos, navButtonWidth + switchCardButtonWidth, strings->switchCards, evChangeCard, 0));
 	}
 
 	const Event scrollEvent = (filesNotMacros) ? evScrollFiles : evScrollMacros;
@@ -547,8 +548,8 @@ void CreateAreYouSurePopup(const ColourScheme& colours)
 	areYouSurePopup->AddField(areYouSureQueryField = new StaticTextField(popupTopMargin + rowHeight, margin, areYouSurePopupWidth - 2 * margin, TextAlignment::Centre, nullptr));
 
 	DisplayField::SetDefaultColours(colours.popupButtonTextColour, colours.popupButtonBackColour);
-	areYouSurePopup->AddField(new IconButton(popupTopMargin + 2 * rowHeight, popupSideMargin, areYouSurePopupWidth/2 - 2 * popupSideMargin, IconOk, evYes));
-	areYouSurePopup->AddField(new IconButton(popupTopMargin + 2 * rowHeight, areYouSurePopupWidth/2 + 10, areYouSurePopupWidth/2 - 2 * popupSideMargin, IconCancel, evCancel));
+	areYouSurePopup->AddField(new IconButton(popupTopMargin + 2 * rowHeight, areYouSurePopupWidth/2 + 10, areYouSurePopupWidth/2 - 2 * popupSideMargin, IconOk, evYes));
+	areYouSurePopup->AddField(new IconButton(popupTopMargin + 2 * rowHeight, popupSideMargin, areYouSurePopupWidth/2 - 2 * popupSideMargin, IconCancel, evCancel));
 }
 
 // Create the baud rate adjustment popup
@@ -665,8 +666,8 @@ void CreateKeyboardPopup(uint32_t language, ColourScheme colours)
 // Create the babystep popup
 void CreateBabystepPopup(const ColourScheme& colours)
 {
-	static const char * array const babystepStrings[2] = { UP_ARROW " 0.02", DOWN_ARROW " 0.02" };
-	static const char * array const babystepAmounts[2] = { "0.02", "-0.02" };
+	static const char * array const babystepStrings[2] = { UP_ARROW " 0.05", DOWN_ARROW " 0.05" };
+	static const char * array const babystepAmounts[2] = { "0.05", "-0.05" };
 	babystepPopup = new StandardPopupWindow(babystepPopupHeight, babystepPopupWidth, colours.popupBackColour, colours.popupBorderColour, colours.popupTextColour, colours.buttonImageBackColour,
 			strings->babyStepping);
 	PixelNumber ypos = popupTopMargin + babystepRowSpacing;
@@ -768,7 +769,7 @@ void CreateControlTabFields(const ColourScheme& colours)
 	homeButtons[5]->Show(false);
 #endif
 	DisplayField::SetDefaultColours(colours.buttonTextColour, colours.buttonImageBackColour);
-	bedCompButton = AddIconButton(row7p7, MaxAxes + 1, MaxAxes + 2, IconBedComp, evSendCommand, "G32");
+	bedCompButton = AddIconButton(row7p7, MaxAxes + 1, MaxAxes + 2, IconBedComp, evBedComp, nullptr);
 
 	filesButton = AddIconButton(row8p7, 0, 4, IconFiles, evListFiles, nullptr);
 	DisplayField::SetDefaultColours(colours.buttonTextColour, colours.buttonTextBackColour);
@@ -1823,6 +1824,11 @@ namespace UI
 				SerialIo::SendChar('\n');
 				break;
 
+			case evBedComp:
+							PopupAreYouSure(ev, strings-> bedCompConfirm, strings->bedCompWarning); // Bed Comp Warning popup
+							break;
+
+
 			case evListFiles:
 				FileManager::DisplayFilesList();
 				break;
@@ -1920,11 +1926,10 @@ namespace UI
 							//??? need to pop up a "wait" box here
 						}
 						else
+
 						{
-							SerialIo::SendString("M98 P");
-							const char * array const dir = (ev == evMacroControlPage) ? FileManager::GetMacrosRootDir() : FileManager::GetMacrosDir();
-							SerialIo::SendFilename(CondStripDrive(dir), fileName);
-							SerialIo::SendChar('\n');
+							currentMacro = fileName; //Save Macro Filename to const
+							PopupAreYouSure(ev, strings-> macroConfirm, strings->macroWarning); // Macro Warning popup
 						}
 					}
 					else
@@ -2086,6 +2091,11 @@ namespace UI
 					FactoryReset();
 					break;
 
+				case evBedComp:
+									SerialIo::SendString("G32");
+									SerialIo::SendString("/n");
+												break;
+
 				case evDeleteFile:
 					if (currentFile != nullptr)
 					{
@@ -2096,6 +2106,24 @@ namespace UI
 						FileManager::RefreshFilesList();
 						currentFile = nullptr;
 					}
+					break;
+
+				case evMacro:
+				case evMacroControlPage:
+					if(currentMacro != nullptr)
+
+						{
+							SerialIo::SendString("M98 P");
+							const char * array const dir = (ev == evMacroControlPage) ? FileManager::GetMacrosRootDir() : FileManager::GetMacrosDir();
+							SerialIo::SendFilename(CondStripDrive(dir), currentMacro);
+							SerialIo::SendChar('\n');
+						}
+
+						else
+						{
+							ErrorBeep();
+						}
+
 					break;
 
 				default:

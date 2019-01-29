@@ -67,7 +67,7 @@ extern uint8_t glcd19x21[];				// declare which fonts we will be using
 #elif DISPLAY_X == 800
 
 const unsigned int MaxHeaters = 7;
-#define MaxAxes (6)
+#define MaxAxes (3)
 
 const PixelNumber margin = 4;
 const PixelNumber textButtonMargin = 1;
@@ -79,10 +79,12 @@ const PixelNumber bedColumn = 160;
 
 const PixelNumber rowTextHeight = 32;	// height of the font we use
 const PixelNumber rowHeight = 48;
-const PixelNumber moveButtonRowSpacing = 20;
-const PixelNumber extrudeButtonRowSpacing = 20;
+const PixelNumber moveButtonRowSpacing = 65;
+const PixelNumber extrudeButtonRowSpacing = 50;
 const PixelNumber fileButtonRowSpacing = 12;
+const PixelNumber switchCardButtonWidth = 80;
 const PixelNumber keyboardButtonRowSpacing = 12;
+const PixelNumber cardNumberSpacing = 80;
 
 const PixelNumber speedTextWidth = 105;
 const PixelNumber efactorTextWidth = 45;
