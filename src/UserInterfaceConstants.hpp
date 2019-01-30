@@ -82,10 +82,8 @@ const PixelNumber rowHeight = 48;
 const PixelNumber moveButtonRowSpacing = 65;
 const PixelNumber extrudeButtonRowSpacing = 50;
 const PixelNumber fileButtonRowSpacing = 12;
-const PixelNumber switchCardButtonWidth = 80;
 const PixelNumber keyboardButtonRowSpacing = 12;
 const PixelNumber cardNumberSpacing = 80;
-
 const PixelNumber speedTextWidth = 105;
 const PixelNumber efactorTextWidth = 45;
 const PixelNumber percentageWidth = 90;

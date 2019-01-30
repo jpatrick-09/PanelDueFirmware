@@ -461,11 +461,11 @@ pre(fileButtons.lim == numRows * numCols)
 {
 	PopupWindow * const popup = new StandardPopupWindow(fileListPopupHeight, fileListPopupWidth, colours.popupBackColour, colours.popupBorderColour, colours.popupTextColour, colours.buttonImageBackColour, nullptr);
 	const PixelNumber closeButtonPos = fileListPopupWidth - closeButtonWidth - popupSideMargin;
-	const PixelNumber navButtonWidth = (closeButtonPos - popupSideMargin)/7;
-	const PixelNumber upButtonPos = closeButtonPos - navButtonWidth - fieldSpacing;
-	const PixelNumber rightButtonPos = upButtonPos - navButtonWidth - fieldSpacing;
-	const PixelNumber leftButtonPos = rightButtonPos - navButtonWidth - fieldSpacing;
-	const PixelNumber textPos = popupSideMargin + navButtonWidth;
+	const PixelNumber navButtonWidth = (closeButtonPos)/4;
+	const PixelNumber upButtonPos = closeButtonPos - (navButtonWidth)/2 - fieldSpacing;
+	const PixelNumber rightButtonPos = upButtonPos - (navButtonWidth)/2 - fieldSpacing;
+	const PixelNumber leftButtonPos = rightButtonPos - (navButtonWidth)/2 - fieldSpacing;
+	const PixelNumber textPos = popupSideMargin + navButtonWidth + 2;
 	const PixelNumber changeButtonPos = popupSideMargin;
 
 	DisplayField::SetDefaultColours(colours.popupTextColour, colours.popupBackColour);
@@ -481,17 +481,17 @@ pre(fileButtons.lim == numRows * numCols)
 	DisplayField::SetDefaultColours(colours.popupButtonTextColour, colours.buttonImageBackColour);
 	if (filesNotMacros)
 	{
-		popup->AddField(changeCardButton = new TextButton(popupTopMargin, changeButtonPos, navButtonWidth + switchCardButtonWidth, strings->switchCards, evChangeCard, 0));
+		popup->AddField(changeCardButton = new TextButton(popupTopMargin, changeButtonPos, navButtonWidth, strings->switchCards, evChangeCard, 0));
 	}
 
 	const Event scrollEvent = (filesNotMacros) ? evScrollFiles : evScrollMacros;
 
 	DisplayField::SetDefaultColours(colours.popupButtonTextColour, colours.popupButtonBackColour);
-	popup->AddField(controlButtons.scrollLeftButton = new TextButton(popupTopMargin, leftButtonPos, navButtonWidth, LEFT_ARROW, scrollEvent, -1));
+	popup->AddField(controlButtons.scrollLeftButton = new TextButton(popupTopMargin, leftButtonPos, (navButtonWidth)/2, LEFT_ARROW, scrollEvent, -1));
 	controlButtons.scrollLeftButton->Show(false);
-	popup->AddField(controlButtons.scrollRightButton = new TextButton(popupTopMargin, rightButtonPos, navButtonWidth, RIGHT_ARROW, scrollEvent, 1));
+	popup->AddField(controlButtons.scrollRightButton = new TextButton(popupTopMargin, rightButtonPos, (navButtonWidth)/2, RIGHT_ARROW, scrollEvent, 1));
 	controlButtons.scrollRightButton->Show(false);
-	popup->AddField(controlButtons.folderUpButton = new TextButton(popupTopMargin, upButtonPos, navButtonWidth, UP_ARROW, (filesNotMacros) ? evFilesUp : evMacrosUp));
+	popup->AddField(controlButtons.folderUpButton = new TextButton(popupTopMargin, upButtonPos, (navButtonWidth)/2, UP_ARROW, (filesNotMacros) ? evFilesUp : evMacrosUp));
 	controlButtons.folderUpButton->Show(false);
 
 	const PixelNumber fileFieldWidth = (fileListPopupWidth + fieldSpacing - (2 * popupSideMargin))/numCols;
@@ -721,7 +721,7 @@ void CreateTemperatureGrid(const ColourScheme& colours)
 
 		// Add the current temperature field
 		DisplayField::SetDefaultColours(colours.infoTextColour, colours.defaultBackColour);
-		FloatField *f = new FloatField(row3 + labelRowAdjust, column, tempButtonWidth, TextAlignment::Centre, 1);
+		FloatField *f = new FloatField(row3 + labelRowAdjust, column, tempButtonWidth, TextAlignment::Left, 1);
 		f->SetValue(0.0);
 		f->Show(false);
 		currentTemps[i] = f;
