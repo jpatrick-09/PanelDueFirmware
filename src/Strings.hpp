@@ -70,6 +70,7 @@ struct StringTable
 	CSTRING ipAddress;
 	CSTRING getDuetVersion;
 	CSTRING updateFirmware;
+	CSTRING toolOffsets;
 
 	// Misc
 	CSTRING macroConfirm;
@@ -170,6 +171,7 @@ const StringTable LanguageTables[NumLanguages] =
 		"Report IP Address",
 		"Report fw version",
 		"Update Firmware",
+		"Report T1 Offsets",
 
 		// Misc
 		"Are you sure you want to run this Macro? ",
@@ -290,6 +292,7 @@ const StringTable LanguageTables[NumLanguages] =
 		"Report IP Address",
 		"Report fw version",
 		"Update Firmware",
+		"Report T1 Offsets",
 
 		// Misc
 		"Are you sure you want to run this Macro? ",
@@ -410,6 +413,7 @@ const StringTable LanguageTables[NumLanguages] =
 		"Report IP Address",
 		"Report fw version",
 		"Update Firmware",
+		"Report T1 Offsets",
 
 		// Misc
 		"Are you sure you want to run this Macro? ",
@@ -530,6 +534,7 @@ const StringTable LanguageTables[NumLanguages] =
 		"Report IP Address",
 		"Report fw version",
 		"Update Firmware",
+		"Report T1 Offsets",
 
 		// Misc
 		"Are you sure you want to run this Macro? ",
@@ -650,6 +655,7 @@ const StringTable LanguageTables[NumLanguages] =
 		"Report IP Address",
 		"Report fw version",
 		"Update Firmware",
+		"Report T1 Offsets",
 
 		// Misc
 		"Are you sure you want to run this Macro? ",

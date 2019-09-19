@@ -959,9 +959,10 @@ void CreateSetupTabFields(uint32_t language, const ColourScheme& colours)
 	infoTimeoutButton = AddIntegerButton(row6, 1, 3, strings->infoTimeout, nullptr, evSetInfoTimeout);
 	infoTimeoutButton->SetValue(infoTimeout);
 	AddTextButton(row6, 2, 3, strings->clearSettings, evFactoryReset, nullptr);
-	AddTextButton(row7, 0, 3, strings->ipAddress, evSendCommand, "M552/n M291 T5 P\"IP Address will be displayed in the console tab\"");
-	AddTextButton(row7, 1, 3, strings->getDuetVersion, evSendCommand, "M115/n M117 Firmware Version will be displayed in the console tab");
-	AddTextButton(row7, 2, 3, strings->updateFirmware, evSendCommand, "M997 S0:1");
+	AddTextButton(row7, 0, 3, strings->ipAddress, evSendCommand, "M552/n M117 IP Address will be displayed in the console tab.");
+	AddTextButton(row7, 1, 3, strings->getDuetVersion, evSendCommand, "M115/n M117 Firmware Version will be displayed in the console tab.");
+	AddTextButton(row7, 2, 3, strings->toolOffsets, evSendCommand, "G10 P1/n M117 Tool offsets will be displayed in the console tab.");
+	AddTextButton(row8, 0, 3, strings->updateFirmware, evSendCommand, "M997 S0:1/n M997/n M117 Check Console tab for any errors.");
 	setupRoot = mgr.GetRoot();
 
 }
